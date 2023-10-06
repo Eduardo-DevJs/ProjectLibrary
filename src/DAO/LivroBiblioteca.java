@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 public class LivroBiblioteca {
 
@@ -28,6 +29,7 @@ public class LivroBiblioteca {
 
             ps.execute();
 
+            JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!");
         } catch (Exception e) {
             System.out.println("Erro cadastro de livro: " + e);
         }
@@ -88,6 +90,8 @@ public class LivroBiblioteca {
 
             preparedStatement.execute();
 
+            JOptionPane.showMessageDialog(null, "Atualizado com sucesso!");
+
         } catch (Exception e) {
             System.out.println("Erro atualizacao de livro:  " + e);
         }
@@ -106,6 +110,8 @@ public class LivroBiblioteca {
             preparedStatement.setInt(1, id);
 
             preparedStatement.execute();
+
+            JOptionPane.showMessageDialog(null, "Deletado com sucesso!");
 
         } catch (Exception e) {
             System.out.println("Erro delete livro " + e);

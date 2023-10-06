@@ -1,11 +1,15 @@
 package VIEW.telaLeitor;
 
+import DAO.LeitorBiblioteca;
+import MODELS.Leitor;
 import VIEW.telaOpcoes.TelaOpcoes;
+import javax.swing.JOptionPane;
 
 public class TelaLeitor extends javax.swing.JFrame {
 
     public TelaLeitor() {
         initComponents();
+        CarregarCampos();
     }
 
     @SuppressWarnings("unchecked")
@@ -27,7 +31,8 @@ public class TelaLeitor extends javax.swing.JFrame {
         btnVoltarMenu = new javax.swing.JButton();
         txtCpf = new javax.swing.JFormattedTextField();
         txtTelefone = new javax.swing.JFormattedTextField();
-        jFormattedTextField1 = new javax.swing.JFormattedTextField();
+        txtEmail = new javax.swing.JFormattedTextField();
+        txtCodigo = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Tela de Leitores");
@@ -57,14 +62,24 @@ public class TelaLeitor extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Codigo de Leitor", "CPF", "Telefone", "Email"
+                "Codigo de Leitor", "Nome", "Data Cadastro", "CPF", "Telefone", "Email"
             }
         ));
+        tabelaLeitores.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelaLeitoresMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tabelaLeitores);
 
         jButton1.setText("Cadastrar");
 
         btnCadastrar.setText("Cadastrar");
+        btnCadastrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCadastrarActionPerformed(evt);
+            }
+        });
 
         btnDeletar.setText("Deletar");
 
@@ -91,7 +106,7 @@ public class TelaLeitor extends javax.swing.JFrame {
         }
         txtTelefone.setMargin(new java.awt.Insets(2, 12, 2, 6));
 
-        jFormattedTextField1.setMargin(new java.awt.Insets(2, 12, 2, 6));
+        txtEmail.setMargin(new java.awt.Insets(2, 12, 2, 6));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -106,7 +121,7 @@ public class TelaLeitor extends javax.swing.JFrame {
                             .addComponent(jLabel1)
                             .addComponent(txtNomeLeitor, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE)
                             .addComponent(jLabel4)
-                            .addComponent(jFormattedTextField1))
+                            .addComponent(txtEmail))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -115,7 +130,7 @@ public class TelaLeitor extends javax.swing.JFrame {
                                 .addComponent(btnDeletar, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
+                                .addGap(0, 184, Short.MAX_VALUE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel2)
@@ -127,7 +142,8 @@ public class TelaLeitor extends javax.swing.JFrame {
                                         .addGap(0, 0, Short.MAX_VALUE))
                                     .addComponent(txtTelefone, javax.swing.GroupLayout.DEFAULT_SIZE, 267, Short.MAX_VALUE)))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnVoltarMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -160,12 +176,14 @@ public class TelaLeitor extends javax.swing.JFrame {
                     .addComponent(btnCadastrar, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
                     .addComponent(btnDeletar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jFormattedTextField1))
+                    .addComponent(txtEmail))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnVoltarMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnVoltarMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(15, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addGap(216, 216, 216)
@@ -184,16 +202,27 @@ public class TelaLeitor extends javax.swing.JFrame {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        setSize(new java.awt.Dimension(797, 540));
+        setSize(new java.awt.Dimension(797, 521));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVoltarMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarMenuActionPerformed
         TelaOpcoes telaOpcoes = new TelaOpcoes();
-        
+
         telaOpcoes.setVisible(true);
         dispose();
     }//GEN-LAST:event_btnVoltarMenuActionPerformed
+
+    private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
+        // TODO add your handling code here:
+        CriarLeitor();
+        CarregarCampos();
+    }//GEN-LAST:event_btnCadastrarActionPerformed
+
+    private void tabelaLeitoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaLeitoresMouseClicked
+        // TODO add your handling code here:
+        CarregarCampos();
+    }//GEN-LAST:event_tabelaLeitoresMouseClicked
 
     /**
      * @param args the command line arguments
@@ -230,13 +259,49 @@ public class TelaLeitor extends javax.swing.JFrame {
         });
     }
 
+    private void CriarLeitor() {
+        Leitor leitor = new Leitor();
+        LeitorBiblioteca biblioteca = new LeitorBiblioteca();
+
+        String nomeValor = leitor.getNome();
+        String cpfValor = leitor.getCpf();
+        String telefoneValor = leitor.getTelefone();
+        String emailValor = leitor.getEmail();
+
+        if (nomeValor == null && cpfValor == null && telefoneValor == null && emailValor == null) {
+            JOptionPane.showMessageDialog(null, "Preencha todos os campos");
+        } else {
+
+            String nome = txtNomeLeitor.getText();
+            String cpf = txtCpf.getText();
+            String telefone = txtTelefone.getText();
+            String email = txtEmail.getText();
+
+            leitor.setNome(nome);
+            leitor.setEmail(email);
+            leitor.setTelefone(telefone);
+            leitor.setCpf(cpf);
+
+            biblioteca.CadastrarLeitor(leitor);
+        }
+    }
+    
+    private void CarregarCampos(){
+         int opcao = tabelaLeitores.getSelectedRow();
+         
+         txtCodigo.setText(tabelaLeitores.getModel().getValueAt(opcao, 0).toString());
+         txtNomeLeitor.setText(tabelaLeitores.getModel().getValueAt(opcao, 1).toString());
+         txtCpf.setText(tabelaLeitores.getModel().getValueAt(opcao, 3).toString());
+         txtTelefone.setText(tabelaLeitores.getModel().getValueAt(opcao, 4).toString());
+         txtEmail.setText(tabelaLeitores.getModel().getValueAt(opcao, 5).toString());
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCadastrar;
     private javax.swing.JButton btnDeletar;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnVoltarMenu;
     private javax.swing.JButton jButton1;
-    private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -244,7 +309,9 @@ public class TelaLeitor extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tabelaLeitores;
+    private javax.swing.JTextField txtCodigo;
     private javax.swing.JFormattedTextField txtCpf;
+    private javax.swing.JFormattedTextField txtEmail;
     private javax.swing.JTextField txtNomeLeitor;
     private javax.swing.JFormattedTextField txtTelefone;
     // End of variables declaration//GEN-END:variables
