@@ -270,20 +270,30 @@ public class TelaLivro extends javax.swing.JFrame {
     }
 
     private void CadastrarLivro() {
-        String titulo = txtTitulo.getText();
-        String autor = txtAutor.getText();
-        String genero = comboGenero.getSelectedItem().toString();
-        int ano_publicacao = Integer.parseInt(txtPublicacao.getText());
 
         LivroBiblioteca livroBiblioteca = new LivroBiblioteca();
         Livro livro = new Livro();
 
-        livro.setTitulo(titulo);
-        livro.setAutor(autor);
-        livro.setGenero(genero);
-        livro.setAno_publicacao(ano_publicacao);
+        String tituloValor = livro.getTitulo();
+        String autorValor = livro.getAutor();
+        String generoValor = livro.getGenero();
 
-        livroBiblioteca.CadastroLivro(livro);
+        if (tituloValor == null && autorValor == null && generoValor == null) {
+            JOptionPane.showMessageDialog(null, "Preencha todos os campos");
+        } else {
+            String titulo = txtTitulo.getText();
+            String autor = txtAutor.getText();
+            String genero = comboGenero.getSelectedItem().toString();
+            int ano_publicacao = Integer.parseInt(txtPublicacao.getText());
+
+            livro.setTitulo(titulo);
+            livro.setAutor(autor);
+            livro.setGenero(genero);
+            livro.setAno_publicacao(ano_publicacao);
+
+            livroBiblioteca.CadastroLivro(livro);
+        }
+
     }
 
     private void PreenchendoCombo() {
